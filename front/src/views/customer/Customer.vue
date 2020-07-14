@@ -1,5 +1,7 @@
 <template lang="pug">
-  #customer
+
+  #customer-page
+
     Modal(
             ref="modal"
             @onSave="onSave()"
@@ -9,7 +11,8 @@
                         :name="customer.name",
                         :cpf="customer.cpf",
                         :email="customer.email",
-                        :telephone="customer.telephone")
+                        :telephone="customer.telephone"
+												@changeInputs="onchangeInputs($event)")
     Search
     Grid(
           :data="filteredCustomers"
@@ -55,39 +58,17 @@
       }
     },
     created() {
-      this.customers = [{
-          id:1,
-          cpf:'07426278611',
-          name: 'Miguel',
-          email: 'Não possui',
-          telephone: 'Não possui'
-        }, {
-          id:2,
-          cpf:'07426278611',
-          name: 'Thiago',
-          email: 'Não possui',
-          telephone: 'Não possui'
-        }, {
-          id:3,
-          cpf:'333333333',
-          name: 'Miguel',
-          email: 'Não possui',
-          telephone: 'Não possui'
-        }, {
-          id:4,
-          cpf:'07426278611',
-          name: 'Miguel',
-          email: 'Não possui',
-          telephone: 'Não possui'
-        }, {
-          id:5,
-          cpf:'07426278611',
-          name: 'Alvarenga',
-          email: 'Não possui',
-          telephone: 'Não possui'
-        }]
+      this.loadCustomers();
     },
     methods: {
+      onChangeInputs($event) {
+        this.customer = $event;
+			},
+			loadCustomers(){
+        this.$http.get('http://localhost:3001/customer/getAll')
+          .then(res => res.json())
+          .then(customers => this.customers = customers)
+      },
       onShowModal($event) {
         this.customer = $event;
         this.$refs['modal'].showModal();
@@ -97,11 +78,22 @@
         alert('Cadastro cancelado!');
       },
 			onSave() {
-        console.log(this.customer);
-        alert('Cliente salvo com sucesso!');
+        const method = this.customer.id ? 'put' : 'post';
+        const url = this.customer.id ? 'update' : 'create';
+        
+        this.$http[method](`http://localhost:3001/customer/${url}`, this.customer)
+        .then(customers => {
+          this.customers = customers
+          this.loadCustomers()
+          alert('Cliente salvo com sucesso!');
+        }, err => console.log(err))
       },
       onDelete($event){
-        alert(`Excluído o cliente ${$event.name}`);
+        this.$http['delete'](`http://localhost:3001/customer/delete`, $event.id)
+          .then(() => {
+            alert(`Excluído o cliente ${$event.name}`);
+            this.loadCustomers()
+          }, err => console.log(err))
       },
       filter(cpf, name) {
         console.log(name)
@@ -127,7 +119,7 @@
 </script>
 
 <style scoped lang="sass">
-  #customer
+  #customer-page
     width: 89%
     margin: 1% 5%
     align-content: center

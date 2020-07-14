@@ -15,12 +15,12 @@
       .control
         .text
           label(for="email") E-mail
-          input#titulo(
+          input#email(
                       autocomplete="off"
                       v-model="email")
         .text
           label(for="telephone") Telefone
-          input#titulo(
+          input#telephone(
                       autocomplete="off"
                       v-model="telephone")
 

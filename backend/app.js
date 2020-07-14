@@ -6,7 +6,7 @@ const express = require('express')
     cors = require('cors')
     bodyParser = require('body-parser')
 
-const customerRouter = require('./routers/customer.router')
+const customerRouter = require('./routes/customer.router')
 
 const env = process.env.NODE_ENV || 'development';
 const config = require(__dirname + '/config/config.json')[env];
