@@ -96,7 +96,7 @@
       width: 100%
       
     table tr:nth-child(even)
-    background-color: white
+      background-color: white
 
     table tr:nth-child(odd)
       background-color: #959595

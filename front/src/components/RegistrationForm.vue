@@ -6,30 +6,35 @@
           label(for="name") Nome Completo
           input#name(
                       autocomplete="off"
-                      v-model="name")
+                      v-model="customer.name")
         .text
           label(for="cpf") CPF
           input#cpf(
                     autocomplete="off"
-                    v-model="cpf")
+                    v-model="customer.cpf")
       .control
         .text
           label(for="email") E-mail
           input#email(
                       autocomplete="off"
-                      v-model="email")
+                      v-model="customer.email")
         .text
           label(for="telephone") Telefone
           input#telephone(
                       autocomplete="off"
-                      v-model="telephone")
+                      v-model="customer.telephone")
 
 </template>
 
 <script>
+import Customer from '../domain/customer/Customer'
   export default {
     name: "RegistrationForm",
 		props: {
+      customer: {
+        type: Customer,
+        required: true
+      },
       name: {
         type: String,
 				required: false
@@ -46,9 +51,7 @@
         type: String,
 				required: false
 			}
-    },
-    watch: { },
-    methods: { }
+    }
   }
 </script>
 

@@ -5,13 +5,13 @@ module.exports = CustomerService = {
   async create(customer) {
     try {
       const newCustomer = new Customer({
-        name: customer.name.trim(),
-        cpr: customer.cpf.trim(),
-        email: customer.email.trim(),
-        telephone: customer.telephone.trim()
+        name: customer.name,
+        cpf: customer.cpf,
+        email: customer.email,
+        telephone: customer.telephone
       });
 
-      return newCustomer.save();
+      return await Customer.create(newCustomer.dataValues).then(customer => customer.dataValues);
     } catch (e) {
       console.log(e)
       return e;
@@ -19,15 +19,7 @@ module.exports = CustomerService = {
   },
     async update(customer) {
       try {
-        const updatedCustomer = new Customer({
-          id: customer.id,
-          name: customer.name.trim(),
-          cpr: customer.cpf.trim(),
-          email: customer.email.trim(),
-          telephone: customer.telephone.trim()
-        });
-
-        return updatedCustomer.save();
+        return Customer.update(customer, { where: { id: parseInt(customer.id) } });
       } catch (e) {
         console.log(e)
         return e;

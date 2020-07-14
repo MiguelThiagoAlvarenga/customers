@@ -1,23 +1,22 @@
 <template lang="pug">
-
-  #customer-page
-
-    Modal(
-            ref="modal"
-            @onSave="onSave()"
-            @onCancel="onCancel()"
-            title="Cadastro de Clientes")
-      RegistrationForm(
-                        :name="customer.name",
-                        :cpf="customer.cpf",
-                        :email="customer.email",
-                        :telephone="customer.telephone"
-												@changeInputs="onchangeInputs($event)")
-    Search
-    Grid(
-          :data="filteredCustomers"
-          @onShowModal="onShowModal($event)"
-          @onDelete="onDelete($event)")
+#customer-page
+  Modal(
+          ref="modal"
+          @onSave="onSave()"
+          @onCancel="onCancel()"
+          title="Cadastro de Clientes")
+    RegistrationForm(
+                      :customer="customer"
+                      :name="customer.name",
+                      :cpf="customer.cpf",
+                      :email="customer.email",
+                      :telephone="customer.telephone"
+                      @changeInputs="onchangeInputs($event)")
+  Search
+  Grid(
+        :data="filteredCustomers"
+        @onShowModal="onShowModal($event)"
+        @onDelete="onDelete($event)")
 
 </template>
 
@@ -81,15 +80,15 @@
         const method = this.customer.id ? 'put' : 'post';
         const url = this.customer.id ? 'update' : 'create';
         
-        this.$http[method](`http://localhost:3001/customer/${url}`, this.customer)
-        .then(customers => {
-          this.customers = customers
-          this.loadCustomers()
-          alert('Cliente salvo com sucesso!');
-        }, err => console.log(err))
+        this.$http[method](`http://localhost:3001/customer/${url}`, {customer: this.customer})
+          .then(customers => {
+            this.customers = customers
+            this.loadCustomers()
+            alert('Cliente salvo com sucesso!');
+          }, err => console.log(err))
       },
       onDelete($event){
-        this.$http['delete'](`http://localhost:3001/customer/delete`, $event.id)
+        this.$http['delete'](`http://localhost:3001/customer/${$event.id}`)
           .then(() => {
             alert(`Excluído o cliente ${$event.name}`);
             this.loadCustomers()

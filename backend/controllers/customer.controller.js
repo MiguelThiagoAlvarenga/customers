@@ -3,11 +3,11 @@ const   models = require('../models')
         CustomerService = require("../services/customer.service")
 
 exports.create = async (req, res) => {
-  res.json(await CustomerService.create(req.body.params.customer));
+  res.json(await CustomerService.create(req.body.customer));
 };
 
 exports.update = async (req, res) => {
-  res.json(await CustomerService.update(req.body.params.customer));
+  res.json(await CustomerService.update(req.body.customer));
 };
 
 exports.getAll = async (req, res) => {
@@ -15,7 +15,7 @@ exports.getAll = async (req, res) => {
 };
 
 exports.delete = async (req, res) => {
-  const id = req.params.id;
+  const option ={ where: { id: parseInt(req.params.id) } } ;
 
-  res.json(await Customer.delete(id));
+  res.json(await Customer.destroy(option));
 };

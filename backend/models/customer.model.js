@@ -20,23 +20,21 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       comment: "Email"
     },
     telephone: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
       comment: "Telephone of the customer"
     }
   },{
     schema: 'app',
     underscored: true,
     underscoredAll: true,
-    timestamps: true,
-    freezeTableName: true
+    timestamps: true
   });
 
-  Customer.associate = function(models) {
-  };
+  Customer.associate = function(models) { };
   return Customer;
 };
