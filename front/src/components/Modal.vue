@@ -2,43 +2,47 @@
   #modal
     .modal-content
       .modal-header
-        span.close(v-on:click="hideModal('cancel')") ×
-        h2 Modal Header
+        span.close(v-on:click="cancel()") ×
+        h2 {{title}}
       slot.modal-body
       div.modal-footer
           button.btn.cancel(v-on:click="cancel()") Cancelar
-          button.btn.save(v-on:click="save()") Salvar
+          button.btn.save(type="submit" v-on:click="save()") Salvar
 
 </template>
 
 <script>
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-  const modal = document.getElementById("modal");
-  if (event.target == modal) {
-    const modal = document.getElementById('modal');
-    modal.style.display = "none";
-    this.$root.$emit('onCloseModal', 'cancel');
-  }
-}
   export default {
     name: "Modal",
+		props: {
+      title: {
+        type: String,
+				required: true
+			}
+    },
+    data() {
+      return {
+        
+      }
+    },
     methods: {
       showModal() {
         const modal = document.getElementById('modal');
         modal.style.display = "block";
-        
       },
-      hideModal(action) {
+      hideModal() {
         const modal = document.getElementById('modal');
         modal.style.display = "none";
-        this.$root.$emit('onCloseModal', action);
       },
       cancel(){
-        this.hideModal('cancel');
+        if(confirm('Se prosseguir irá perder os dados digitados no formulário!!!')) {
+          this.$emit('onCancel');
+          this.hideModal();
+        }
       },
       save(){
-        this.hideModal('save');
+        this.$emit('onSave');
+        this.hideModal();
       }
     }
   }
@@ -118,8 +122,12 @@ window.onclick = function(event) {
       height: 3rem
   
     .btn
-      margin-top: 0.8rem
+      margin-top: 0.5rem
       float: right
       font-size: 15px
       font-weight: bold
+      height: 2rem
+      width: 7rem
+      margin-left: 1rem
+
 </style>

@@ -15,9 +15,11 @@
           td.name  {{element.name}}
           td.email {{element.email}}
           td.telephone {{element.telephone}}
-          td
-            button.actions( v-on:click="changeElement(element)")
+          td.actions
+            button( v-on:click="changeElement(element)")
               b.btnLabel Editar
+            button.delete( v-on:click="deleteElement(element)")
+              b.btnLabel Excluir
 
     div(v-if="!data || data.length === 0")
       table
@@ -34,7 +36,12 @@
 <script>
   export default {
     name: "Grid",
-    props: { data: []},
+    props: {
+      data: {
+        type: Array,
+				required: true
+			}
+		},
     created() {
     },
     data(){
@@ -43,7 +50,12 @@
     },
     methods: {
       changeElement(element) {
-        this.$root.$emit('showModal', element);
+        this.$emit('onShowModal', element);
+      },
+      deleteElement(element) {
+        if(confirm('Depois de excluído não terá mais os dados do Cliente. Deseja prosseguir?')) {
+          this.$emit('onDelete', element);
+        }
       }
     }
   }
@@ -51,7 +63,26 @@
 
 <style scoped lang="sass">
   #grid
+    .delete
+      color: width
+      background-color: red
+    .btnLabel
+      padding: 4px
+    button
+      float: center
+      font-size: 15px
+      font-weight: bold
+      height: 2rem
+      width: 7rem
+      margin: 0.5rem
+      cursor: pointer
+      &:hover
+        background-color: blue
+        color: white
+    
     .btnAddCustomer
+      width: 16rem
+      height: 3rem
       float: right
       color: white
       background-color: #0f1c5a
@@ -60,9 +91,6 @@
       cursor: pointer
       &:hover
         background-color: blue
-
-    .btnLabel
-      padding: 4px
 
     table
       width: 100%
@@ -74,15 +102,17 @@
       background-color: #959595
 
     table th
+      text-aligne: center
       background-color: #0f1c5a
       font-size: 18px
       color: white
+      height: 3rem
     table td
+      text-aligne: center
       font-size: 14px
-      .actions
-        cursor: pointer
-        &:hover
-          background-color: blue
-          color: white
+      height: 4rem
+    .actions
+      width: 17rem
+      text-aligne: center
 
 </style>

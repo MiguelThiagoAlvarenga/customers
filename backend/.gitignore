@@ -1,0 +1,16 @@
+node_modules
+../node_modules/
+../node_modules/*
+build
+npm-debug.log
+.env
+.DS_Store
+logs
+thumbs.db
+*.log
+*.gz
+.vscode/
+logs/
+.history/
+.idea/
+.vscode/

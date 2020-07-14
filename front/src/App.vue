@@ -1,7 +1,8 @@
 <template lang="pug">
   #app
     Header
-    router-view
+    transition(name="page")
+      router-view
     Footer
 </template>
 
@@ -27,4 +28,8 @@ export default {
     -moz-osx-font-smoothing: grayscale
     text-align: center
     color: #2c3e50
+    .page-enter, .page-leave-active
+      opacity: 0
+    .page-enter-active, .page-leave-active
+      transition: opacity .5s
 </style>

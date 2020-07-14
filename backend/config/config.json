@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "customer",
+    "host": "localhost",
+    "dialect": "postgres",
+    "port": 5432,
+    "define": {
+      "schema": "app"
+    },
+    "basePath": ""
+  },
+  "production": {
+    "username": "postgres",
+    "password": "postgres",
+    "database": "customer",
+    "host": "localhost",
+    "dialect": "postgres",
+    "port": 5432,
+    "define": {
+      "schema": "app"
+    },
+    "basePath": ""
+  }
+}

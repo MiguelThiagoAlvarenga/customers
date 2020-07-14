@@ -4,12 +4,12 @@
     input.filter(
       type="search"
       placeholder="Digite o CPF"
-      v-on:input="onChangeCPF($event.target.value)")
+      @input="onChangeCPF($event.target.value)")
     b.title Filtrar por Nome:
     input.filter(
       type="search"
       placeholder="Digite o Nome"
-      v-on:input="onChangeName($event.target.value)")
+      @input="onChangeName($event.target.value)")
 </template>
 
 <script>
