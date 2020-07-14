@@ -64,7 +64,7 @@
         this.customer = $event;
 			},
 			loadCustomers(){
-        this.$http.get('http://localhost:3001/customer/getAll')
+        this.$http.get('http://52.5.143.174:3001/customer/getAll')
           .then(res => res.json())
           .then(customers => this.customers = customers)
       },
@@ -80,7 +80,7 @@
         const method = this.customer.id ? 'put' : 'post';
         const url = this.customer.id ? 'update' : 'create';
         
-        this.$http[method](`http://localhost:3001/customer/${url}`, {customer: this.customer})
+        this.$http[method](`http://52.5.143.174:3001/customer/${url}`, {customer: this.customer})
           .then(customers => {
             this.customers = customers
             this.loadCustomers()
@@ -88,7 +88,7 @@
           }, err => console.log(err))
       },
       onDelete($event){
-        this.$http['delete'](`http://localhost:3001/customer/${$event.id}`)
+        this.$http['delete'](`http://52.5.143.174:3001/customer/${$event.id}`)
           .then(() => {
             alert(`Excluído o cliente ${$event.name}`);
             this.loadCustomers()
