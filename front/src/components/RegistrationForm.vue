@@ -11,7 +11,8 @@
           label(for="cpf") CPF *
           input#cpf(
                     autocomplete="off"
-                    v-model="customer.cpf")
+                    v-model="customer.cpf"
+                    v-mask="['###.###.###-##', '##.###.###/####-##']")
       .control
         .text
           label(for="email") E-mail
@@ -22,36 +23,23 @@
           label(for="telephone") Telefone
           input#telephone(
                       autocomplete="off"
-                      v-model="customer.telephone")
+                      v-model="customer.telephone"
+                      v-mask="['(##) #### ####', '(##) ##### ####']")
 
 </template>
 
 <script>
 import Customer from '../domain/customer/Customer'
+import {mask} from 'vue-the-mask'
   export default {
     name: "RegistrationForm",
 		props: {
       customer: {
         type: Customer,
         required: true
-      },
-      name: {
-        type: String,
-				required: false
-			},
-      cpf: {
-        type: String,
-				required: false
-			},
-      email: {
-        type: String,
-				required: false
-			},
-      telephone: {
-        type: String,
-				required: false
-			}
-    }
+      }
+    },
+    directives: {mask}
   }
 </script>
 
