@@ -8,22 +8,25 @@
                       autocomplete="off"
                       v-model="customer.name")
         .text
-          label(for="cpf") CPF *
+          label(for="cpf") CPF ou CNPJ *
           input#cpf(
                     autocomplete="off"
                     v-model="customer.cpf"
+                    placeholder="111.111.111-11 ou 11.111.111/1111-11"
                     v-mask="['###.###.###-##', '##.###.###/####-##']")
       .control
         .text
           label(for="email") E-mail
           input#email(
                       autocomplete="off"
+                      placeholder="aaaa@aaaa"
                       v-model="customer.email")
         .text
           label(for="telephone") Telefone
           input#telephone(
                       autocomplete="off"
                       v-model="customer.telephone"
+                      placeholder="(11) 11111 1111"
                       v-mask="['(##) #### ####', '(##) ##### ####']")
 
 </template>
