@@ -3,12 +3,12 @@
     form( @submit = "")
       .control
         .text
-          label(for="name") Nome Completo
+          label(for="name") Nome Completo *
           input#name(
                       autocomplete="off"
                       v-model="customer.name")
         .text
-          label(for="cpf") CPF
+          label(for="cpf") CPF *
           input#cpf(
                     autocomplete="off"
                     v-model="customer.cpf")

@@ -4,7 +4,8 @@
           ref="modal"
           @onSave="onSave()"
           @onCancel="onCancel()"
-          title="Cadastro de Clientes")
+          title="Cadastro de Clientes"
+          :disableSave="disableSave")
     RegistrationForm(
                       :customer="customer"
                       :name="customer.name",
@@ -38,6 +39,9 @@
     computed: {
       filteredCustomers() {
         return this.filterCpf || this.filterName ? this.filter(this.filterCpf, this.filterName) : this.customers
+      },
+      disableSave(){
+        return !this.customer.name || !this.customer.cpf
       }
     },
     mounted() {

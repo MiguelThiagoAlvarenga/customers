@@ -7,14 +7,22 @@
       slot.modal-body
       div.modal-footer
           button.btn.cancel(v-on:click="cancel()") Cancelar
-          button.btn.save(type="submit" v-on:click="save()") Salvar
-
+          button.btn.save.tooltip(
+                          type="submit"
+                          v-on:click="save()"
+                          :disabled="disableSave") Salvar
+            span.tooltiptext(v-if="disableSave") "Deve-se preencher os campos obrigatórios(*)"
 </template>
 
 <script>
   export default {
     name: "Modal",
 		props: {
+      disableSave: {
+        type: Boolean,
+        required: true,
+        default: true
+      },
       title: {
         type: String,
 				required: true
@@ -130,4 +138,38 @@
       width: 7rem
       margin-left: 1rem
 
+    .tooltip
+      position: relative
+      display: inline-block
+      border-bottom: 1px dotted black
+
+      .tooltiptext
+        visibility: hidden
+        width: 16rem
+        background-color: #555
+        color: #fff
+        text-align: center
+        border-radius: 6px
+        padding: 5px 0
+        position: absolute
+        z-index: 1
+        bottom: 125%
+        left: 50%
+        margin-left: -60px
+        opacity: 0
+        transition: opacity 0.3s
+
+        &::after
+          content: ""
+          position: absolute
+          top: 100%
+          left: 50%
+          margin-left: -5px
+          border-width: 5px
+          border-style: solid
+          border-color: #555 transparent transparent transparent
+
+      &:hover .tooltiptext
+        visibility: visible
+        opacity: 1
 </style>
