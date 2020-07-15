@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "eslint": "^2.13.1",
+    "eslint": "^4.18.2",
     "eslint-loader": "^2.2.1",
     "eslint-plugin-vue": "^2.1.0",
     "vue": "^2.6.11",
